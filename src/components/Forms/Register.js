@@ -83,7 +83,7 @@ const Register = () => {
         <Grid>{errors.password && <span>This field is required</span>}</Grid>
         <Grid>
           <Button type="submit" color="secondary" variant="contained">
-            Login
+            Register
           </Button>
         </Grid>
       </Grid>

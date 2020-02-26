@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppBar, Toolbar, Tabs, Tab } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { auth } from "../../../config/firebaseUtil";
 
 const PublicNavbar = () => {
   //Tabs
@@ -17,6 +18,7 @@ const PublicNavbar = () => {
             <Tab label="Home" component={Link} to="/" />
             <Tab label="Register" component={Link} to="/register" />
             <Tab label="Login" component={Link} to="/login" />
+            <Tab label="Logout" onClick={() => auth.signOut()} />
           </Tabs>
         </Toolbar>
       </AppBar>

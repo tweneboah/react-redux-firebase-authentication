@@ -3,7 +3,8 @@ import { Grid, TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import {
   signInWithGoogle,
-  createUserDocumentProfile
+  createUserDocumentProfile,
+  auth
 } from "../../config/firebaseUtil";
 
 const LoginForm = () => {
@@ -18,8 +19,12 @@ const LoginForm = () => {
     console.log(yes);
   };
 
-  const submitData = (user) => {
-    console.log(user);
+  const submitData = async (user) => {
+    try {
+      await auth.signInWithEmailAndPassword(user.email, user.password);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <form onSubmit={handleSubmit(submitData)}>
