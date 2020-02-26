@@ -1,31 +1,92 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Grid } from "@material-ui/core";
+import { auth, createUserDocumentProfile } from "../../config/firebaseUtil";
 
 const Register = () => {
-  const { register, control, handleSubmit, errors } = useForm({
+  const { control, handleSubmit, errors } = useForm({
     displayName: "",
-    dateOfBirth: "",
     email: "",
     password: "",
     confirmPassword: ""
   });
 
-  const submitData = (user) => {
-    console.log(user);
+  const submitData = async (userAuth) => {
+    const { displayName, email, password } = userAuth;
+    try {
+      //We have to des
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserDocumentProfile(user, { displayName });
+      console
+        .log(user)
+
+        .catch(function(error) {});
+    } catch (error) {}
   };
   return (
     <form onSubmit={handleSubmit(submitData)}>
-      <h1>Register</h1>
-      <Controller
-        defaultValue=""
-        control={control}
-        as={<TextField type="date" label="first name" placeholder="name" />}
-        name="firstname"
-        rules={{ required: true }}
-      />
-      {errors.firstname && <span>This field is required</span>}
-      <Button type="submit">Register</Button>
+      <Grid container direction="column" alignItems="center">
+        <Grid item>
+          <h1>Login to YourAccount </h1>
+        </Grid>
+
+        <Grid>
+          <Controller
+            defaultValue=""
+            control={control}
+            as={
+              <TextField
+                type="ematextil"
+                label="Display Name"
+                placeholder="Enter Your  Display Name"
+              />
+            }
+            name="displayName"
+            rules={{ required: true }}
+          />
+        </Grid>
+        <Grid>
+          <Controller
+            defaultValue=""
+            control={control}
+            as={
+              <TextField
+                type="email"
+                label="Email"
+                placeholder="Enter Your  Email"
+              />
+            }
+            name="email"
+            rules={{ required: true }}
+          />
+        </Grid>
+        <Grid>{errors.email && <span>This field is required</span>}</Grid>
+        <Grid>
+          <Controller
+            defaultValue=""
+            control={control}
+            as={
+              <TextField
+                type="password"
+                label="Password"
+                placeholder="Enter Your Password"
+              />
+            }
+            name="password"
+            rules={{ required: true }}
+          />
+        </Grid>
+        <Grid>{errors.password && <span>This field is required</span>}</Grid>
+        <Grid>
+          <Button type="submit" color="secondary" variant="contained">
+            Login
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 };

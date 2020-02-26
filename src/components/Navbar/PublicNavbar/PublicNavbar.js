@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Tabs, Tab } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const PublicNavbar = () => {
+  //Tabs
+  const [tabsValue, setTabsValue] = useState(0);
+  //Onchange
+  const handleChange = (event, newValue) => {
+    setTabsValue(newValue);
+  };
   return (
-    <div>
-      <h1>PublicNavbar</h1>
-    </div>
+    <React.Fragment>
+      <AppBar color="primary">
+        <Toolbar>
+          <Tabs value={tabsValue} onChange={handleChange}>
+            <Tab label="Home" component={Link} to="/" />
+            <Tab label="Register" component={Link} to="/register" />
+            <Tab label="Login" component={Link} to="/login" />
+          </Tabs>
+        </Toolbar>
+      </AppBar>
+      <div style={{ marginBottom: "60px" }}></div>
+    </React.Fragment>
   );
 };
 

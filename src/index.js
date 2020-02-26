@@ -1,14 +1,20 @@
 import React from "react";
-
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { CssBaseline } from "@material-ui/core";
+
+import store from "./redux/store";
+import Theme from "./config/Theme";
 
 ReactDOM.render(
-  <React.Fragment>
-    <CssBaseline />
-    <App />
-  </React.Fragment>,
+  <Provider store={store}>
+    <React.Fragment>
+      <ThemeProvider theme={Theme}>
+        <App />
+      </ThemeProvider>
+    </React.Fragment>
+  </Provider>,
   document.getElementById("root")
 );
