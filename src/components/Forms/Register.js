@@ -20,7 +20,7 @@ const Register = () => {
       <Controller
         defaultValue=""
         control={control}
-        as={<TextField label="first name" placeholder="name" />}
+        as={<TextField type="date" label="first name" placeholder="name" />}
         name="firstname"
         rules={{ required: true }}
       />
